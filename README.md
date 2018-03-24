@@ -27,7 +27,7 @@ Please change them accordingly.
 
 ## Some useful information
 
-All the LMIs are coded using a string variable and then convert to LMIs.  For instance if the content of LMI 21 needs to be checked, just issue the following command after the matlab prompt
+All the LMIs are coded using a string variable which is later converted to LMIs.  For instance if the content of LMI 21 needs to be checked, just issue the following command after the matlab prompt
 
 >> auxm21
 
@@ -40,10 +40,10 @@ auxm21 =
     'G(:,:,n,i)'+G(:,:,n,i)-mathW(:,: ...'    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'
     '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'    'mathW(:,:,min(N,n+1),j);'          
 
-The sdpvar version of the same LMI can be found in the variable m21 which is a cell array. LMI 21 is pilled up in the variable called biglmi21.
+The sdpvar version of the same LMI can be found in the variable called m21 which is a cell array. LMI 21 is pilled up in the variable called biglmi21 which together all other LMIs (biglmi111, biglmi15, ...) are joined in a singl big LMI - LMIs_orig (procedure_jianbo_esp.m)
 
 The same rationale is used for all other LMIs, that is, LMI 11, LMI 15, LM 16, LMI 20, LMI 21, LMI 23, LMI 25 (two parts)
 
-The m code is commented as much as possible.
+The m-files are commented as much as possible.
 
 If you find any mistake please let me know.  Thanks.
