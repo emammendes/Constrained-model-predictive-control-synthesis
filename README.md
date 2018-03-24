@@ -5,7 +5,7 @@ Constrained-model-predictive-control-synthesis is an attempt to implement the id
 A matlab code is provided that uses Yalmip with sedumi or mosek. It is assumed that all the necessary packages are already installed in the MATLAB environment. If not you can uncomment a few lines in the main script and change them accordingly.
 
 
-## The matalb-mfiles
+## The MATLAB mfiles
 
 ### The main script
 
