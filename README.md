@@ -15,7 +15,7 @@ Just type the name after the prompt and the script will take care of running the
 
 Please remember to set the path for yalmip, sedumi or mosek before calling it. On the script you will find the following lines:
 
-addpath(genpath("~/Documents/MATLAB/yalmip"))
+addpath(genpath('~/Documents/MATLAB/yalmip'))
 
 addpath(genpath('~/Documents/MATLAB/cvx/sedumi'))
 
