@@ -34,8 +34,8 @@ auxm21 =
 
   2×2 cell array
 
-    'G(:,:,n,i)'+G(:,:,n,i)-mathW(:,:'    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:,'
-    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:,'    'mathW(:,:,min(N,n+1),j);'          
+    'G(:,:,n,i)'+G(:,:,n,i)-mathW(:,: ...'    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'
+    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'    'mathW(:,:,min(N,n+1),j);'          
 
 The sdpvar version of the same LMI can be found in the variable m21 which is a cell array. LMI 21 is pilled up in the variable called biglmi21.
 
