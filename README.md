@@ -25,6 +25,20 @@ addpath(genpath('~/mosek/8/toolbox/r2014a'));
 
 Please change them accordingly.
 
+In the script you will find the main flags: 
+
+1) flagx - if flagx = 0, the initial conditions for the states x are always 1, that ix, x(:,1)=[1;1].  If flagx = 1, the initial conditions are chosen randomly from an uniform distribution U(-1,1).  The default is flagx=0.
+
+2) flagu - if flagu = 0, the initial condition for the input is always the value of the variable CIu (CIu=0.22 is the default).  If flagu = 1, the initial condition is randomly chosen from an uniform distribution U(-umax,umax) where umax is 1 as for the example in the paper. The default is flagu=0; 
+
+3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly choesen from the set {1,2,3}. 
+
+The number of replication is set to 100. If there is a need to change its value, use the variable nrep in the beginning of the script.
+
+The maximum input value is set to 1 using the variable umax.  
+
+The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
+
 ## Some useful information
 
 All the LMIs are coded using a string variable which is later converted to LMIs.  For instance if the content of LMI 21 needs to be checked, just issue the following command after the matlab prompt
