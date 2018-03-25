@@ -33,13 +33,13 @@ In the script you will find the main flags:
 
 3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly choesen from the set {1,2,3}. 
 
-The number of replication is set to 100. If there is a need to change the value, use the variable nrep in the beginning of the script.
+* The number of replication is set to 100. If there is a need to change the value, use the variable nrep in the beginning of the script.
 
-The maximum input value is set to 1 using the variable umax.  
+* The maximum input value is set to 1 using the variable umax.  
 
-The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
+* The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
 
-There is a flag, flagc, that if it is set to 1 the constrained problem will be solved otherwise an unconstrained problem will be solved instead.  
+* There is a flag, flagc, that if it is set to 1 the constrained problem will be solved otherwise an unconstrained problem will be solved instead.  
 
 Obs. 1: I have not included the state constraints.
 
@@ -53,7 +53,7 @@ Obs. 3: I thank Dr. Lu for patiently answering my questions.
 
 All the LMIs are coded using a string variable which is later converted to LMIs.  For instance if the content of LMI 21 needs to be checked, just issue the following command after the matlab prompt
 
->> auxm21
+`>> auxm21`
 
 and you will see
 
