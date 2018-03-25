@@ -64,7 +64,7 @@ auxm21 =
     'G(:,:,n,i)'+G(:,:,n,i)-mathW(:,: ...'    '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'
     '(A{l,i}*G(:,:,n,i)+B{l,i}*Y(:,:, ...'    'mathW(:,:,min(N,n+1),j);'          
 
-The sdpvar version of the same LMI can be found in the variable called m21 which is a cell array. LMI 21 is pilled up in the variable called biglmi21 that together with all other LMIs (biglmi111, biglmi15, ...) results in a single big LMI - LMIs_orig (procedure_jianbo_esp.m)
+The sdpvar version of the same LMI can be found in the variable called m21 which is a cell array. LMI 21 is pilled up in the variable called biglmi21 that together with all other LMIs (biglmi11, biglmi15, ...) results in a single big LMI - LMIs_orig (procedure_jianbo_esp.m)
 
 The same rationale is used for all other LMIs, that is, LMI 11, LMI 15, LM 16, LMI 20, LMI 21, LMI 23, LMI 25 (two parts)
 
