@@ -33,11 +33,21 @@ In the script you will find the main flags:
 
 3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly choesen from the set {1,2,3}. 
 
-The number of replication is set to 100. If there is a need to change its value, use the variable nrep in the beginning of the script.
+The number of replication is set to 100. If there is a need to change the value, use the variable nrep in the beginning of the script.
 
 The maximum input value is set to 1 using the variable umax.  
 
 The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
+
+There is a flag, flagc, that if it is set to 1 the constrained problem will be solved otherwise an unconstrained problem will be solved instead.  
+
+Obs. 1: I have not included the state constraints.
+
+Obs. 2: As it is the code fails for some initial conditions.  Despite the problem I hope it will be of some help to anyone who wants to understand the problme dealt in the paper.
+
+Obs. 3: As it is the code is set to run using mosek instead of sedumi.   
+
+Obs. 3: I thank Dr. Lu for patiently answering my questions.  
 
 ## Some useful information
 
