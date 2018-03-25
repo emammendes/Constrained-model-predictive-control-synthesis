@@ -85,8 +85,5 @@ T=2;
 P{1}=[0.55 0.23 0.22;0.36 0.35 0.29;0.32 0.16 0.52]; % t=1
 P{2}=[0.79 0.11 0.10;0.27 0.53 0.20;0.23 0.07 0.70]; % t=2
 
-% N is the number of the predicted control strategy. In the case of the
-% example in the paper N is set to 3. 
 
-N=1;
 

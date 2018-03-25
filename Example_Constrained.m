@@ -30,8 +30,7 @@ gammav(:,1)=[NaN;NaN];   % No solver as yet.
 
 %% Call the example.  In this case, the example is the one given in Jianbo's paper
 
-% Many parameters can be found there, specially N that defines the
-% prediction horizon and of course the system itself
+% Many parameters can be found there
 
 model_parameters_jianbo
 
@@ -69,6 +68,14 @@ if flagc
 end
 
 nrep=100;fprintf('Number of replications = %d\n',nrep);
+
+
+%% Predicted Control Strategy
+
+% N is the number of the predicted control strategy. In the case of the
+% example in the paper N is set to 1 or 3. 
+
+N=1;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
@@ -299,5 +306,12 @@ ylabel('u(t)');title(sprintf('Agerage Control effort over %g replications - Orig
 %ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
 xlabel('Number of steps');
 hold off;
+
+%% Images
+
+% for i=1:tfig
+%     figure(i);
+%     print(sprintf('images/image%d.png',i),'-dpng');
+% end
 
 
