@@ -181,6 +181,7 @@ for iparb=1:length(parb)
         if ~flaguk
             % Plot results
             plot_figure_sim(1,1,x,u,r,cc_orig)
+            drawnow;
             ccontrol_orig(mc)=cc_orig;
             x_orig=[x_orig x'];
             u_orig=[u_orig u'];
