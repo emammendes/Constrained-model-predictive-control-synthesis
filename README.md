@@ -43,7 +43,7 @@ In the script you will find the main flags:
 
 Obs. 1: I have not included the state constraints.
 
-Obs. 2: As it is the code fails for some initial conditions.  Despite the problem I hope it will be of some help to anyone who wants to understand the problme dealt in the paper.
+Obs. 2: As it is the code fails for some initial conditions.  Despite the problem I hope it will be of some help to anyone who wants to understand the problem discussed in the paper.
 
 Obs. 3: As it is the code is set to run using mosek instead of sedumi.   
 
