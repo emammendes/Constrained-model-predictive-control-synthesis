@@ -47,7 +47,7 @@ Obs. 2: As it is the code fails for some initial conditions.  Despite the proble
 
 Obs. 3: As it is the code is set to run using mosek instead of sedumi.   
 
-Obs. 3: I thank Dr. Lu for patiently answering my questions.  
+Obs. 4: I thank Dr. Lu for patiently answering my questions.  
 
 ## Some useful information
 
