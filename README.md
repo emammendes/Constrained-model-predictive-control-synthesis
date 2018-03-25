@@ -5,9 +5,9 @@ Constrained-model-predictive-control-synthesis is an attempt to implement the id
 A matlab code is provided that uses Yalmip with sedumi or mosek. It is assumed that all the necessary packages are already installed in the MATLAB environment. If not you can uncomment a few lines in the main script and change them accordingly.
 
 
-## The MATLAB mfiles
+# The MATLAB mfiles
 
-### The main script
+## The main script
 
 The main script is the file "Example_Constrained".
 
@@ -25,13 +25,15 @@ addpath(genpath('~/mosek/8/toolbox/r2014a'));
 
 Please change them accordingly.
 
-In the script you will find the main flags: 
+In the script you will find the following main flags: 
 
 1) flagx - if flagx = 0, the initial conditions for the states x are always 1, that is, x(:,1)=[1;1].  If flagx = 1, the initial conditions are chosen randomly from an uniform distribution U(-1,1).  The default is flagx=0.
 
 2) flagu - if flagu = 0, the initial condition for the input is always the value of the variable CIu (CIu=0.22 is the default).  If flagu = 1, the initial condition is randomly chosen from an uniform distribution U(-umax,umax) where umax is 1 as for the example in the paper. The default is flagu=0; 
 
 3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly chosen from the set {1,2,3}. 
+
+The main parameters are:
 
 * The number of replication is set to 100. If there is a need to change the value, use the variable nrep in the beginning of the script.
 
@@ -40,6 +42,10 @@ In the script you will find the main flags:
 * The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
 
 * There is a flag, flagc, that if it is set to 1 the constrained problem will be solved otherwise an unconstrained problem will be solved instead.  
+
+* The prediction control estrategy can be controlled using the variable N in the main script.  The default is N = 1.
+
+A couple of observations:
 
 Obs. 1: I have not included the state constraints.
 
@@ -71,3 +77,10 @@ The same rationale is used for all other LMIs, that is, LMI 11, LMI 15, LM 16, L
 The m-files are commented as much as possible.
 
 If you find any mistake please let me know.  Thanks.
+
+# Example
+
+Here it is an example of runing the script using the default values.
+
+* State, input and mode paths for the last replication (simulation) - ![path](images/image1.png)
+
