@@ -31,7 +31,7 @@ In the script you will find the main flags:
 
 2) flagu - if flagu = 0, the initial condition for the input is always the value of the variable CIu (CIu=0.22 is the default).  If flagu = 1, the initial condition is randomly chosen from an uniform distribution U(-umax,umax) where umax is 1 as for the example in the paper. The default is flagu=0; 
 
-3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly choesen from the set {1,2,3}. 
+3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly chosen from the set {1,2,3}. 
 
 * The number of replication is set to 100. If there is a need to change the value, use the variable nrep in the beginning of the script.
 
