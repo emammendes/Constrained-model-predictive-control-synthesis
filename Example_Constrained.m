@@ -94,15 +94,15 @@ flagx = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1,
 
 % Initial input
 
-u=zeros(nu,ksteps);
-
-CIu=0.22;
-
-u(:,1)=CIu;
-
-flagu = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1, the CIs are randomly chosen.
-
-flagu = 0;
+% u=zeros(nu,ksteps);
+% 
+% CIu=0.22;
+% 
+% u(:,1)=CIu;
+% 
+% flagu = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1, the CIs are randomly chosen.
+% 
+% flagu = 0;
 
 % Initial Mode
 
@@ -170,11 +170,11 @@ for iparb=1:length(parb)
         
         u=zeros(nu,ksteps);
         
-        if ~flagu
-            u(:,1)=CIu;
-        else
-            u(:,1)=unifrnd(-umax,umax,nu,1);
-        end
+%         if ~flagu
+%             u(:,1)=CIu;
+%         else
+%             u(:,1)=unifrnd(-umax,umax,nu,1);
+%         end
         
         % Initial Mode
         

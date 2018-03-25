@@ -28,7 +28,7 @@ pre_build_lmi11_jianbo
 actual_build_lmi11_jianbo
 
 
-%% Pre-Build LMI 15 and 16 
+%% Pre-Build LMI 15 and 16
 
 % Since LMI 15 and 16 are updated at every step only the string version of them is
 % built here
@@ -44,7 +44,7 @@ pre_build_lmi16_jianbo
 % x(:,1) = [1; 1];
 % xk=x(:,1);
 
-% Initial input 
+% Initial input
 
 % u(1)=0;
 
@@ -56,7 +56,7 @@ pre_build_lmi16_jianbo
 % Cost function and options
 
 Obj=gamma_1+gamma_2;
-    
+
 % Horizon
 
 % ksteps=30;
@@ -88,39 +88,43 @@ end
 
 % Main Loop
 
-for k=2:ksteps
+for k=1:ksteps
     
-    % Call script to choose matrices and model
-    
-    % script_choose_matrices_mode
-    alphaS=randfixedsum(L,1,1,0,1)';  % L is the number of vertices of the system matrices
-    alphaP=randfixedsum(T,1,1,0,1)';  % T is the number of vertices of the Probability matrix
-    
-    A_alpha{k-1}=alphaS(1)*A{1,r{k-1}};
-    B_alpha{k-1}=alphaS(1)*B{1,r{k-1}};
-    
-    for kk=2:length(alphaS)
-        A_alpha{k-1}=A_alpha{k-1}+alphaS(kk)*A{kk,r{k-1}};
-        B_alpha{k-1}=B_alpha{k-1}+alphaS(kk)*B{kk,r{k-1}};
+    if k > 1 % For k =1 xk and rk are already chosen
+        
+        % Call script to choose matrices and model
+        
+        % script_choose_matrices_mode
+        alphaS=randfixedsum(L,1,1,0,1)';  % L is the number of vertices of the system matrices
+        alphaP=randfixedsum(T,1,1,0,1)';  % T is the number of vertices of the Probability matrix
+        
+        A_alpha{k-1}=alphaS(1)*A{1,r{k-1}};
+        B_alpha{k-1}=alphaS(1)*B{1,r{k-1}};
+        
+        for kk=2:length(alphaS)
+            A_alpha{k-1}=A_alpha{k-1}+alphaS(kk)*A{kk,r{k-1}};
+            B_alpha{k-1}=B_alpha{k-1}+alphaS(kk)*B{kk,r{k-1}};
+        end
+        
+        P_alpha{k-1}= alphaP(1)*P{1};
+        
+        for kk=2:length(alphaP)
+            P_alpha{k-1}=P_alpha{k-1}+alphaP(kk)*P{kk};
+        end
+        
+        % Second Step - Run the system considering that mode is already given.
+        
+        x(:,k) = A_alpha{k-1}*x(:,k-1) + B_alpha{k-1}*u(k-1);
+        xk=x(:,k); % I did not need to do that but it makes debug somehow easier
+        
+        % Third step - Choose the next mode
+        r{k}=genmarkovs(P_alpha{k-1},r{k-1});
+        
+        rk=r{k}; % I did not need to do that but it makes debug somehow easier
+        
+        %fprintf('Value of uk = %g at step %d \n',double(uk),k);
+        
     end
-    
-    P_alpha{k-1}= alphaP(1)*P{1};
-    
-    for kk=2:length(alphaP)
-        P_alpha{k-1}=P_alpha{k-1}+alphaP(kk)*P{kk};
-    end
-    
-    % Second Step - Run the system considering that mode is already given.
-    
-    x(:,k) = A_alpha{k-1}*x(:,k-1) + B_alpha{k-1}*u(k-1);
-    xk=x(:,k); % I did not need to do that but it makes debug somehow easier
-    
-    % Third step - Choose the next mode
-    r{k}=genmarkovs(P_alpha{k-1},r{k-1});
-    
-    rk=r{k}; % I did not need to do that but it makes debug somehow easier
-    
-    %fprintf('Value of uk = %g at step %d \n',double(uk),k);
     
     if isnan(double(uk))
         disp('Infeasible LMI');
