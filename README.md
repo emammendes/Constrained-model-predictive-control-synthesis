@@ -13,7 +13,7 @@ The main script is the file "Example_Constrained".
 
 Just type the name after the prompt and the script will take care of running the example given in the paper.
 
-Please remember to set the path for yalmip, sedumi or mosek before calling it. On the script you will find the following lines:
+Please remember to set the path for yalmip, sedumi or mosek before calling it. In the script you will find the following lines:
 
 addpath(genpath('~/Documents/MATLAB/yalmip'))
 
