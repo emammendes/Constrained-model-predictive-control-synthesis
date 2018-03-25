@@ -32,6 +32,9 @@ gammav(:,1)=[NaN;NaN];   % No solver as yet.
 
 %% Call the example.  In this case, the example is the one given in Jianbo's paper
 
+% Many parameters can be found there, specially N that defines the
+% prediction horizon and of course the system itself
+
 model_parameters_jianbo
 
 %% Options Solver
@@ -43,6 +46,8 @@ opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 % if flagc = 1 constrained else unconstrained
 
 flagc=1; % constrained
+
+disp('***********************************************');
 
 if flagc 
     disp('A Constrained problem will be solved');
@@ -66,6 +71,10 @@ if flagc
 end
 
 nrep=100;fprintf('Number of replications = %d\n',nrep);
+
+fprintf('%d-steps ahead will be considered \n',N);
+
+disp('***********************************************');
 
 %% Initial Conditions and modes
 
@@ -267,18 +276,18 @@ end
 
 % Control
 
-tfig=tfig+1;
-
-figure(tfig);
-%subplot(3,1,1);
-vec1=[(u_orig_mean-u_orig_std) u_orig_mean (u_orig_mean+u_orig_std)];
-for i=size(vec1,2)
-    plot(vec1(:,i),'LineStyle',linS{i},'Color',linC{i});hold on;
-end
-ylabel('u(t)');title(sprintf('Agerage Control effort over %g replications - Original - one std',nrep));
-%ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
-xlabel('Number of steps');
-hold off;
+% tfig=tfig+1;
+% 
+% figure(tfig);
+% %subplot(3,1,1);
+% vec1=[(u_orig_mean-u_orig_std) u_orig_mean (u_orig_mean+u_orig_std)];
+% for i=1:size(vec1,2)
+%     plot(vec1(:,i),'LineStyle',linS{i},'Color',linC{i});hold on;
+% end
+% ylabel('u(t)');title(sprintf('Agerage Control effort over %g replications - Original - one std',nrep));
+% %ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
+% xlabel('Number of steps');
+% hold off;
 
 
 tfig=tfig+1;
