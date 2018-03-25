@@ -86,3 +86,5 @@ Here it is an example of runing the script using the default values.
 
 * Control Cost over all replications (simulations) - ![control](images/image2.png)
 
+* Average Control effort over all replications (simulations) - ![average](images/image7.png)
+
