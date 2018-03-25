@@ -1,15 +1,13 @@
-% Comparision between Our Method and the one available in the literature as
-% described below
 %
-% Rosileide Lopes, Reinaldo Palhares and Eduardo Mendes - 09/14/2017
-% DELT - UFMG
-%
-% Paper (Available Method) -  Constrained model predictive control synthesis for
+% Paper ---  Constrained model predictive control synthesis for
 % uncertain discrete-time Markovian jump linear systems, by Jianbo Lu,
 % Dewei Li and Yugeng Xi. IET Control Theory and Applications v. 7, Iss. 5,
 % pp. 707-719, 2014.
 %
 %
+%
+% Rosileide Lopes, Reinaldo Palhares and Eduardo Mendes - 03/24/2018
+% DELT - UFMG
 
 %% Cleaning the variables
 
