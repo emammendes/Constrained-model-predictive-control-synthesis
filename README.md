@@ -84,3 +84,5 @@ Here it is an example of runing the script using the default values.
 
 * State, input and mode paths for the last replication (simulation) - ![path](images/image1.png)
 
+* Control Cost over all replications (simulations) - ![control](images/image2.png)
+
