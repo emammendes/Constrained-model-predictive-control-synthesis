@@ -25,10 +25,8 @@ nq=nx;
 nr=nu;
 
 pre_build_lmi11_jianbo
-pre_build_lmi21_jianbo
-
 actual_build_lmi11_jianbo
-actual_build_lmi21_jianbo
+
 
 %% Pre-Build LMI 15 and 16 
 
@@ -75,14 +73,18 @@ problems=zeros(ksteps,1);
 
 % More LMIS
 
-pre_build_lmi20_jianbo
-pre_build_lmi23_jianbo
-pre_build_lmi25_jianbo
-pre_build_lmi25_1_jianbo
-
-actual_build_lmi23_jianbo
-actual_build_lmi25_jianbo
-actual_build_lmi25_1_jianbo
+if flagc % Constrained
+    pre_build_lmi20_jianbo
+    pre_build_lmi21_jianbo
+    pre_build_lmi23_jianbo
+    pre_build_lmi25_jianbo
+    pre_build_lmi25_1_jianbo
+    
+    actual_build_lmi21_jianbo
+    actual_build_lmi23_jianbo
+    actual_build_lmi25_jianbo
+    actual_build_lmi25_1_jianbo
+end
 
 % Main Loop
 
@@ -126,20 +128,17 @@ for k=2:ksteps
         break;
     else
         
-        % Build LMI 11, 15, 16, 20, 21, 23, 25 and 25_1 using the string version of the matrix
+        % Update LMIs 15, 16 and 20 using the string version of the LMIs
         
-        %actual_build_lmi11_jianbo
         actual_build_lmi15_jianbo
         actual_build_lmi16_jianbo
-        actual_build_lmi20_jianbo
-        %actual_build_lmi21_jianbo
-        %actual_build_lmi23_jianbo
-        %actual_build_lmi25_jianbo
-        %actual_build_lmi25_1_jianbo
         
-        LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
-        
-        %LMIs_orig=[biglmi11;biglmi15;biglmi16];
+        if flagc % Constrained or not
+            actual_build_lmi20_jianbo
+            LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
+        else
+            LMIs_orig=[biglmi11;biglmi15;biglmi16];
+        end
         
         sol = optimize(LMIs_orig,Obj,opts);
         

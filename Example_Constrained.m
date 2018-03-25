@@ -38,13 +38,34 @@ model_parameters_jianbo
 
 opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 
-%% Main Loop
+%% Set flag for constrained or unconstrained simulations
 
-ksteps=80;
+% if flagc = 1 constrained else unconstrained
+
+flagc=1; % constrained
+
+if flagc 
+    disp('A Constrained problem will be solved');
+    disp('');
+    disp('LMIs 11, 15, 16, 20, 21, 23 and 25 will be used');
+else
+    disp('An unconstrained problem will be solved');
+    disp('');
+    disp('LMIs 11, 15 and 16 will be used');
+end
+
+% Obs.:  Flagc will be active in the file procedure_jianbo_esp.m 
+
+%% Simulation parameters
+
+ksteps=80;fprintf('Simulation size = %d steps\n',ksteps);
 
 umax=1;
+if flagc 
+    fprintf('Maximum allowed control input = %g\n',umax)
+end
 
-nrep=300;
+nrep=100;fprintf('Number of replications = %d\n',nrep);
 
 %% Initial Conditions and modes
 
@@ -209,7 +230,7 @@ end
 %% Failures
 
 
-fprintf('Number of failures = %d of %d attempts, %d successful replications\n',mcseed-mc,mcseed-1,nrep)
+fprintf('\nNumber of failures = %d of %d attempts, %d successful replications\n',mcseed-mc,mcseed-1,nrep)
 
 
 %% Plot some important variables
