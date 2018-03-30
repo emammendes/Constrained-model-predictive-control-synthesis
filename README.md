@@ -88,9 +88,9 @@ Here it is an example of runing the script using the default values.
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4](images/image_6_u_constraint_N_3_random.png)
 
-# Latex scripts
+# Latex script
 
-The script *script_generate_lmi_latex* generates a latex file for each one of the LMIS defined in the paper. The script uses function *write_check_lmi* to build a latex table for the LMI and compile the resulting file (*lmicheck_jianbo_lmiXX*.tex). An example using *LMI 11* can be seen below
+The script *script_generate_lmi_latex* generates a latex file for each one of the LMIs defined in the paper. The script uses function *write_check_lmi* to build a latex table for the LMI and compile the resulting file (*lmicheck_jianbo_lmiXX*.tex). An example using *LMI 11* can be seen below
 
 ![latex](images/Example_LMI_11.png)
 
