@@ -36,8 +36,11 @@ elseif nargin == 3
 end
     
     
-
-[a,b]=size(aux);
+if isstr(aux)
+    a=1;b=1;
+else
+    [a,b]=size(aux);
+end
 
 % or use the larger caption package
 
@@ -60,7 +63,7 @@ s=char('\documentclass{article}',...
 %         \end{tabular}
 
 x='\begin{longtabu} to 1.25\textwidth {';
-for i=1:size(aux,2)
+for i=1:b
     x=sprintf('%s|X[3,l]',x);
 end
 x=sprintf('%s|}\\hline',x);
@@ -73,14 +76,18 @@ x=sprintf('%s|}\\hline',x);
 % x=sprintf('%s}',x);
 s=char(s,x);
 
-for i=1:size(aux,1)
+for i=1:a
     x='';
-    for j=1:size(aux,2)
-        if j < size(aux,2)
-            x=sprintf('%s $%s',x,strrep(char(aux{i,j}),';','$ &'));
-        else
-           x=sprintf('%s $%s',x,strrep(char(aux{i,j}),';','$ \\ \hline'));
+    if ~isstr(aux)
+        for j=1:b
+            if j < b
+                x=sprintf('%s $%s',x,strrep(char(aux{i,j}),';','$ &'));
+            else
+                x=sprintf('%s $%s',x,strrep(char(aux{i,j}),';','$ \\ \hline'));
+            end
         end
+    else
+        x=['$' aux '$'];
     end
     x=sprintf('%s ',x);
     x=strrep(x,'{','_{');
@@ -88,6 +95,8 @@ for i=1:size(aux,1)
     x=strrep(x,'mathR','\mathcal{R}');
     x=strrep(x,'mathW','\mathcal{W}');
     x=strrep(x,'mathU','\mathcal{U}');
+    x=strrep(x,'mathX','\mathcal{X}');
+    x=strrep(x,'mathPhi','\phi');
     %x=strrep(x,'}','\}');
     s=char(s,x);
 end

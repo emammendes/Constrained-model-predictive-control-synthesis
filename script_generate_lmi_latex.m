@@ -51,35 +51,11 @@ pre_build_lmi11_jianbo
 
 write_check_lmi(auxm11,'lmicheck_jianbo_lmi11.tex',[capt ' - Jianbo - LMI 11'],observ);
 
-clear auxm11
-
-pre_build_lmi11_ros_rho
-
-write_check_lmi(auxm11,'lmicheck_ros_rho_lmi11.tex',[capt ' - Rho - LMI 11'],observ);
-
-clear auxm11
-
-pre_build_lmi11_ros_z_w
-
-write_check_lmi(auxm11,'lmicheck_ros_z_w_lmi11.tex',[capt ' - Z and W - LMI 11'],observ);
-
 %% LMI 15
 
 pre_build_lmi15_jianbo
 
 write_check_lmi(m15,'lmicheck_jianbo_lmi15.tex',[capt ' - Jianbo - LMI 15'],observ);
-
-clear m15
-
-pre_build_lmi15_ros_rho
-
-write_check_lmi(m15,'lmicheck_ros_rho_lmi15.tex',[capt ' - Rho - LMI 15'],observ);
-
-clear m15
-
-pre_build_lmi15_ros_z_w
-
-write_check_lmi(m15,'lmicheck_ros_z_w_lmi15.tex',[capt ' - Z and W - LMI 15'],observ);
 
 %% LMI 16
 
@@ -87,15 +63,43 @@ pre_build_lmi16_jianbo
 
 write_check_lmi(auxm16,'lmicheck_jianbo_lmi16.tex',[capt ' - Jianbo - LMI 16'],observ);
 
-clear auxm16
+%% LMI 20
 
-pre_build_lmi16_ros_rho
+pre_build_lmi20_jianbo
 
-write_check_lmi(auxm16,'lmicheck_ros_rho_lmi16.tex',[capt ' - RHO - LMI 16'],observ);
+write_check_lmi(auxm20,'lmicheck_jianbo_lmi20.tex',[capt ' - Jianbo - LMI 20'],observ);
 
-clear auxm16
+%% LMI 21
 
-pre_build_lmi16_ros_z_w
+pre_build_lmi21_jianbo
 
-write_check_lmi(auxm16,'lmicheck_ros_z_w_lmi16.tex',[capt ' - Z and W - LMI 16'],observ);
+write_check_lmi(auxm21,'lmicheck_jianbo_lmi21.tex',[capt ' - Jianbo - LMI 21'],observ);
+
+%% LMI 23
+
+pre_build_lmi23_jianbo
+
+write_check_lmi(auxm23,'lmicheck_jianbo_lmi23.tex',[capt ' - Jianbo - LMI 23'],observ);
+
+%% LMI 24
+
+pre_build_lmi24_jianbo
+
+write_check_lmi(auxm24,'lmicheck_jianbo_lmi24.tex',[capt ' - Jianbo - LMI 24'],observ);
+
+%% LMI 25
+
+pre_build_lmi25_jianbo
+
+write_check_lmi(auxm25,'lmicheck_jianbo_lmi25.tex',[capt ' - Jianbo - LMI 25 (Part I)'],observ);
+
+write_check_lmi(auxm25_1,'lmicheck_jianbo_lmi25_1.tex',[capt ' - Jianbo - LMI 25 (Part II)'],observ);
+
+%% LMI 26
+
+pre_build_lmi26_jianbo
+
+write_check_lmi(auxm26,'lmicheck_jianbo_lmi26.tex',[capt ' - Jianbo - LMI 26 (Part I)'],observ);
+
+write_check_lmi(auxm26_1,'lmicheck_jianbo_lmi26_1.tex',[capt ' - Jianbo - LMI 26 (Part II)'],observ);
 
