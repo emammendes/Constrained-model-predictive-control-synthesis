@@ -85,7 +85,7 @@ nrep=500;fprintf('Number of replications = %d\n',nrep);
 % N is the number of the predicted control strategy. In the case of the
 % example in the paper N is set to 1 or 3. 
 
-N=3;
+N=1;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
