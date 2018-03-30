@@ -43,7 +43,7 @@ The main parameters are:
 
 * The number of steps in each replication (simulation) is set using the variable *ksteps*.  The default is *ksteps* = 80 (as in the paper). 
 
-* The prediction control estrategy can be controlled using the variable *N* in the main script.  The default is *N* = 1.
+* The prediction control estrategy can be controlled using the variable *N* in the main script.  The default is *N* = 1 or *N* = 3.
 
 A couple of observations:
 
@@ -80,11 +80,11 @@ If you find any mistake please let me know.  Thanks.
 
 Here it is an example of runing the script using the default values.
 
-* State, input and mode paths for the last replication (unconstrained simulation) - ![path](images/image1.png)
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path](images/image_1_no_constraints_N_3.png)
 
-* Control Cost over all replications (unconstrained simulation) - ![control](images/image2.png)
+* Control Cost over all replications (unconstrained simulation - *N* = 3) - ![control](images/image_2_no_constraints_N_3.png)
 
-* Average Control effort over all replications (unconstrained simulation) - ![average](images/image7.png)
+* Average Control effort over all replications (unconstrained simulation - *N* = 3) - ![average](images/image_5_no_constraints_N_3.png)
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4](images/image_6_u_constraint_N_3_random.png)
 
