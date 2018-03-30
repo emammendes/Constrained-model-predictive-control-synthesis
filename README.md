@@ -27,9 +27,11 @@ Please change them accordingly.
 
 In the script you will find the following main flags: 
 
-1) flagx - if flagx = 0, the initial conditions for the states x are always 1, that is, x(:,1)=[1;1].  If flagx = 1, the initial conditions are chosen randomly from an uniform distribution U(-1,1).  The default is flagx=0. 
+1) flagc - if it is set to 1 the constrained problem on the input will be solved. It it is set to 2 the constrained problem on the state and input will be tacked with otherwise an unconstrained problem will be solved. 
 
-2) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly chosen from the set {1,2,3}. 
+2) flagx - if flagx = 0, the initial conditions for the states x are always 1, that is, x(:,1)=[1;1] (You can change the values by editing the script).  If flagx = 1, the initial conditions are chosen randomly from an uniform distribution U(-umax,umax), where the value of umax can be chosen by editing the script.  The default is flagx=0. 
+
+3) flagr - if flagr = 0, the initial mode is set to 1 (as in the paper).  If flagr = 1, the initial model is randomly chosen from the set {1,2,3}. 
 
 The main parameters are:
 
@@ -37,17 +39,15 @@ The main parameters are:
 
 * The maximum input value is set to 1 using the variable umax.  
 
-* The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper).
+* The maximum value of the initial states is set to 1.5 using the variable.  Such a veriable not conly controls the maxinum value used for generating the initial conditions (constrained problem) but the maximum allowed value in the state constrained problem.
 
-* There is a flag, flagc, that if it is set to 1 the constrained problem will be solved otherwise an unconstrained problem will be solved instead.  
+* The number of steps in each replication (simulation) is set using the variable ksteps.  The default is ksteps = 80 (as in the paper). 
 
 * The prediction control estrategy can be controlled using the variable N in the main script.  The default is N = 1.
 
 A couple of observations:
 
-Obs. 1: I have not included the state constraints.
-
-Obs. 2: As it is the code fails for some initial conditions.  Despite the problem I hope it will be of some help to anyone who wants to understand the problem discussed in the paper.
+Obs. 1: As it is the code fails for some initial conditions when solving the constrained problem.  The reason is that Theorem 2 is violated. When this happens, a message will come out showing the initial condition.  I have not tested values outside the range x0=[-1.5,1.5] for the unconstrained problem.
 
 Obs. 3: As it is the code is set to run using mosek instead of sedumi.   
 
@@ -80,9 +80,11 @@ If you find any mistake please let me know.  Thanks.
 
 Here it is an example of runing the script using the default values.
 
-* State, input and mode paths for the last replication (simulation) - ![path](images/image1.png)
+* State, input and mode paths for the last replication (unconstrained simulation) - ![path](images/image1.png)
 
-* Control Cost over all replications (simulations) - ![control](images/image2.png)
+* Control Cost over all replications (unconstrained simulation) - ![control](images/image2.png)
 
-* Average Control effort over all replications (simulations) - ![average](images/image7.png)
+* Average Control effort over all replications (unconstrained simulation) - ![average](images/image7.png)
+
+* Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4](images/image_6_u_constraint_N_3_random.png)
 
