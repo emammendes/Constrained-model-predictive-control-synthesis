@@ -39,7 +39,7 @@ The main parameters are:
 
 * The maximum input value is set to 1 using the variable *umax*.  
 
-* The maximum value of the initial states is set to 1.5 using the variable *xmax*.  Such a veriable not only controls the maxinum value used for generating the initial conditions (constrained problem) but the maximum allowed value in the state constrained problem.
+* The maximum value of the initial states is set to 1.5 using the variable *xmax*.  Such a veriable not only controls the maxinum value used for generating the initial conditions (constrained problem) but also the maximum allowed value in the state constrained problem.
 
 * The number of steps in each replication (simulation) is set using the variable *ksteps*.  The default is *ksteps* = 80 (as in the paper). 
 
