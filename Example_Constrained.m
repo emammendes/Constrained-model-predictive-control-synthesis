@@ -268,7 +268,7 @@ for i=1:nx
     figure(tfig);
     %subplot(3,1,1);
     %vec=[(x_orig_mean(:,i)-x_orig_std(:,i)) x_orig_mean(:,i) (x_orig_mean(:,i)+x_orig_std(:,i))];
-    vec=[min(x_orig(:,i:2:end),[],2) x_orig_mean(:,i) max(x_orig(:,i:2:end),[],2)];
+    vec=[min(x_orig(:,i:nx:end),[],2) x_orig_mean(:,i) max(x_orig(:,i:nx:end),[],2)];
     for j=1:3
         plot(vec(:,j),'LineStyle',linS{j},'Color',linC{j});hold on;
     end
