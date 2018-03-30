@@ -80,11 +80,23 @@ If you find any mistake please let me know.  Thanks.
 
 Here it is an example of runing the script using the default values.
 
+## For *N*=1 (Unconstrained Problem)
+
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path](images/image_1_no_constraints_N_1.png)
+
+* Control Cost over all replications (unconstrained simulation - *N* = 1) - ![control](images/image_2_no_constraints_N_1.png)
+
+* Average Control effort over all replications (unconstrained simulation - *N* = 1) - ![average](images/image_5_no_constraints_N_1.png)
+
+## For *N*=3 (Unconstrained Problem)
+
 * State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path](images/image_1_no_constraints_N_3.png)
 
 * Control Cost over all replications (unconstrained simulation - *N* = 3) - ![control](images/image_2_no_constraints_N_3.png)
 
 * Average Control effort over all replications (unconstrained simulation - *N* = 3) - ![average](images/image_5_no_constraints_N_3.png)
+
+## For *N*=3 (Input Constrained Problem)
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4](images/image_6_u_constraint_N_3_random.png)
 
