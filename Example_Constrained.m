@@ -273,7 +273,7 @@ for i=1:nx
         plot(vec(:,j),'LineStyle',linS{j},'Color',linC{j});hold on;
     end
     ylabel(sprintf('x_%d(t)',i));title('Original');
-    title(sprintf('State Path for N=%d bounded by the maximum and mininum paths',N));
+    title(sprintf('State Path for N=%d bounded by the maximum and minimum paths',N));
     xlabel('Number of steps');
     hold off;
 end
@@ -287,7 +287,7 @@ vec1=[min(u_orig,[],2) u_orig_mean max(u_orig,[],2)];
 for i=1:size(vec1,2)
     plot(vec1(:,i),'LineStyle',linS{i},'Color',linC{i});hold on;
 end
-ylabel('u(t)');title(sprintf('Average Control effort over %g replications bounded by the maximum and mininum paths',nrep));
+ylabel('u(t)');title(sprintf('Average Control effort over %g replications bounded by the maximum and minimum paths',nrep));
 %ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
 xlabel('Number of steps');
 hold off;
