@@ -40,16 +40,22 @@ opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 
 %% Set flag for constrained or unconstrained simulations
 
-% if flagc = 1 constrained else unconstrained
+% if flagc = 0 an unconstrained problem will be solved
+% if flagc = 1 a constrained problem adding LMIs 20, 21, 23 e 25 will be solved.
+% if flagc = 2 a constrained problem adding LMIs 20, 21, 23, 24, 25 e 25 will be solved
 
-flagc=1; % constrained
+flagc=0;
 
 disp('***********************************************');
 
-if flagc 
+if flagc == 1
     disp('A Constrained problem will be solved');
     disp('');
     disp('LMIs 11, 15, 16, 20, 21, 23 and 25 will be used');
+elseif flagc == 2
+    disp('A Constrained problem will be solved');
+    disp('');
+    disp('LMIs 11, 15, 16, 20, 21, 23, 24, 25 and 26 will be used');
 else
     disp('An unconstrained problem will be solved');
     disp('');
@@ -63,11 +69,15 @@ end
 ksteps=80;fprintf('Simulation size = %d steps\n',ksteps);
 
 umax=1;
-if flagc 
-    fprintf('Maximum allowed control input = %g\n',umax)
+xmax=1.5;
+if flagc ==1
+    fprintf('Maximum allowed control input = %g\n',umax);
+elseif flagc == 2
+    fprintf('Maximum allowed control input = %g\n',umax);
+    fprintf('Maximum vale for the state    = %g\n',xmax);
 end
 
-nrep=100;fprintf('Number of replications = %d\n',nrep);
+nrep=500;fprintf('Number of replications = %d\n',nrep);
 
 
 %% Predicted Control Strategy
@@ -75,7 +85,7 @@ nrep=100;fprintf('Number of replications = %d\n',nrep);
 % N is the number of the predicted control strategy. In the case of the
 % example in the paper N is set to 1 or 3. 
 
-N=1;
+N=3;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
@@ -90,19 +100,7 @@ x=zeros(nx,ksteps);
 x(:,1) = ones(nx,1);
 xk=x(:,1);
 
-flagx = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1, the CIs are randomly chosen.
-
-% Initial input
-
-% u=zeros(nu,ksteps);
-% 
-% CIu=0.22;
-% 
-% u(:,1)=CIu;
-% 
-% flagu = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1, the CIs are randomly chosen.
-% 
-% flagu = 0;
+flagx = 0;   % If flagx = 0  the CIs above will be used.  If it is equal to 1, the CIs are randomly chosen.
 
 % Initial Mode
 
@@ -111,7 +109,8 @@ rk=r{1};  % I did not need to do that but it makes debug somehow easier
 
 flagr = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1, the CIs are randomly chosen.
 
-%  The prediction horizon is set in the file model_parameteres_jianbo.m
+%  I have just added the following in case I need to change the matrix B in
+%  the example. parb=[0.0] which is the value in the paper.
 
 parb=[0.0];% 0.4 0.45 0.46 0.47 0.475 0.476 0.477 0.478 0.478 0.479 0.48 0.49 0.5 0.6 0.7 0.8 0.9 1.0]; % values of the parameter b
 
@@ -137,6 +136,10 @@ for iparb=1:length(parb)
     
     mc_failure=[];
     
+    x_failure=[];
+    
+    r_failure=[];
+    
     while mc <= nrep
         
         disp(' ');
@@ -147,10 +150,10 @@ for iparb=1:length(parb)
         
         infoSolver_orig{1,mc}='Initial';
         
-        % Just to be sure that uk is not NaN and it is the replication is
+        % Just to be sure that uk is not feasible and it is the replication is
         % not taken into account
         
-        flaguk=0;
+        flagfeas=1;   % Assuming Feasible solution
         
         % Set the seed
         
@@ -161,7 +164,7 @@ for iparb=1:length(parb)
         if ~flagx 
             x(:,1) = ones(nx,1);
         else
-            x(:,1)=unifrnd(-1,1,nx,1);
+            x(:,1)=unifrnd(-xmax,xmax,nx,1);
         end
         
         xk=x(:,1);
@@ -170,21 +173,15 @@ for iparb=1:length(parb)
         
         u=zeros(nu,ksteps);
         
-%         if ~flagu
-%             u(:,1)=CIu;
-%         else
-%             u(:,1)=unifrnd(-umax,umax,nu,1);
-%         end
-        
         % Initial Mode
         
         if ~flagr
             r{1}=1;
         else
             r{1}=unidrnd(3);
-            rk=r{1};  % I did not need to do that but it makes debug somehow easier
         end
         
+        rk=r{1};  % I did not need to do that but it makes debug somehow easier
         
         % Jianbo's ideas are implemented in the following script
         
@@ -192,7 +189,7 @@ for iparb=1:length(parb)
         
         % If there is no problem with the solution do
         
-        if ~flaguk
+        if flagfeas
             % Plot results
             plot_figure_sim(1,1,x,u,r,cc_orig)
             drawnow;
@@ -202,11 +199,11 @@ for iparb=1:length(parb)
             mc=mc+1;
         else
             mc_failure=[mc_failure mcseed];
+            x_failure=[x_failure xk];
+            r_failure=[r_failure rk];
         end
         
         mcseed=mcseed+1;
-        
-        %disp('Here');pause;
         
     end
     
@@ -244,15 +241,23 @@ end
 
 %% Failures
 
-
 fprintf('\nNumber of failures = %d of %d attempts, %d successful replications\n',mcseed-mc,mcseed-1,nrep)
 
 
 %% Plot some important variables
 
+% State
+
 tfig=2;
 
-figure(tfig);plot(1:nrep,ccontrol_orig,'*',1:nrep,mean(ccontrol_orig)*ones(1,nrep),'r-');title(sprintf('Average control cost = %g for N=%d',mean(ccontrol_orig),N));
+figure(tfig);plot(1:nrep,ccontrol_orig,'*',1:nrep,mean(ccontrol_orig)*ones(1,nrep),'r-');
+if flagc == 1
+    title(sprintf('Average control cost = %g for N=%d - Input Constraint',mean(ccontrol_orig),N));
+elseif flagc == 2
+    title(sprintf('Average control cost = %g for N=%d - Input and State Constraints',mean(ccontrol_orig),N));
+else
+    title(sprintf('Average control cost = %g for N=%d',mean(ccontrol_orig),N));
+end
 xlabel('Number of replications');
 
 linS = {'--','-','--'};
@@ -262,38 +267,18 @@ for i=1:nx
     tfig=tfig+1;
     figure(tfig);
     %subplot(3,1,1);
-    vec=[(x_orig_mean(:,i)-x_orig_std(:,i)) x_orig_mean(:,i) (x_orig_mean(:,i)+x_orig_std(:,i))];
+    %vec=[(x_orig_mean(:,i)-x_orig_std(:,i)) x_orig_mean(:,i) (x_orig_mean(:,i)+x_orig_std(:,i))];
+    vec=[min(x_orig(:,i:2:end),[],2) x_orig_mean(:,i) max(x_orig(:,i:2:end),[],2)];
     for j=1:3
         plot(vec(:,j),'LineStyle',linS{j},'Color',linC{j});hold on;
     end
     ylabel(sprintf('x_%d(t)',i));title('Original');
+    title(sprintf('State Path for N=%d bounded by the maximum and mininum paths',N));
+    xlabel('Number of steps');
     hold off;
 end
 
-% Average trajectories for the original and modified algorithm
-
-for i=1:nx
-    tfig=tfig+1;
-    figure(tfig);
-    plot(x_orig_mean(:,i));ylabel(sprintf('x_%d(t)',i));legend('Original');
-    title(sprintf('Average trajectory over %g replications',nrep));xlabel('Number of steps');
-end
-
-% Control
-
-% tfig=tfig+1;
-% 
-% figure(tfig);
-% %subplot(3,1,1);
-% vec1=[(u_orig_mean-u_orig_std) u_orig_mean (u_orig_mean+u_orig_std)];
-% for i=1:size(vec1,2)
-%     plot(vec1(:,i),'LineStyle',linS{i},'Color',linC{i});hold on;
-% end
-% ylabel('u(t)');title(sprintf('Agerage Control effort over %g replications - Original - one std',nrep));
-% %ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
-% xlabel('Number of steps');
-% hold off;
-
+% Input
 
 tfig=tfig+1;
 
@@ -302,16 +287,55 @@ vec1=[min(u_orig,[],2) u_orig_mean max(u_orig,[],2)];
 for i=1:size(vec1,2)
     plot(vec1(:,i),'LineStyle',linS{i},'Color',linC{i});hold on;
 end
-ylabel('u(t)');title(sprintf('Agerage Control effort over %g replications - Original - max and min',nrep));
+ylabel('u(t)');title(sprintf('Average Control effort over %g replications bounded by the maximum and mininum paths',nrep));
 %ylim([min([min(min(vec1)) min(min(vec2)) min(min(vec3))]) max([max(max(vec1)) max(max(vec2)) max(max(vec3))])]);
 xlabel('Number of steps');
 hold off;
 
+%% Initial conditions for the state if randomly chosen
+
+if flagx > 0
+    tfig=tfig+1;
+    figure(tfig);
+    plot(x_orig(1,1:2:end),x_orig(1,2:2:end),'*');
+    if flagc == 1
+        title(sprintf('Valid initial conditions over %g replications for N = %d - Input constraint',nrep,N));
+    else
+        title(sprintf('Valid initial conditions over %g replications for N = %d - Input and State constraints',nrep,N));
+    end
+    xlabel('x_1(0)');ylabel('x_2(0)');
+end
+
+
 %% Images
 
-% for i=1:tfig
-%     figure(i);
-%     print(sprintf('images/image%d.png',i),'-dpng');
-% end
+if exist('images','dir') ~= 7 % Please see help for exist
+    mkdir('images')
+end
+
+for i=1:tfig
+    if flagc == 1
+        if flagx 
+            s=sprintf('images/image_%d_u_constraint_N_%d_random.png',i,N);
+        else
+            s=sprintf('images/image_%d_u_constraint_N_%d.png',i,N);
+        end
+    elseif flagc == 2
+        if flagx 
+            s=sprintf('images/image_%d_u_and_x_constraints_N_%d_random.png',i,N);
+        else
+            s=sprintf('images/image_%d_u_and_x_constraints_N_%d.png',i,N);
+        end
+    else
+        if flagx 
+            s=sprintf('images/image_%d_no_constraints_N_%d_random.png',i,N);
+        else
+            s=sprintf('images/image_%d_no_constraints_N_%d.png',i,N);
+        end
+    end
+    figure(i);
+    print(s,'-dpng');
+end
+
 
 

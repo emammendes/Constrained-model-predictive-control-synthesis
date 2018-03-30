@@ -46,8 +46,19 @@ G=sdpvar(nx,nx,N,M,'full');
 Y=sdpvar(nu,nx,N,M,'full');
 
 
-mathW=sdpvar(nx,nx,N,M,'symmetric');
-mathU=sdpvar(nu,nu,N,M,'symmetric');
-mathX=sdpvar(nx,nx,N,M,'symmetric');
+if flagc == 1
+    mathW=sdpvar(nx,nx,N,M,'symmetric');  % Defined as W in the paper
+    mathU=sdpvar(nu,nu,N,M,'symmetric');  % Defoned as X in the paper
+else
+    if flagc == 2
+        mathW=sdpvar(nx,nx,N,M,'symmetric');  % Defined as W in the paper
+        mathU=sdpvar(nu,nu,N,M,'symmetric');  % Defoned as X in the paper
+        mathX=sdpvar(nx,nx,N,M,'symmetric');  % Defined as Z in the paper
+    end
+end
+
+% Definition of a flag for LMI 24
+
+flaglmi24=0;
 
 

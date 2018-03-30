@@ -10,10 +10,5 @@ for i=1:M
     end
 end
 
-%% Inequality 23
-
-% auxlmi25_1=[auxlmi25_1;eval(m23)];
-
-%% LMI
 
 biglmi25_1 = auxlmi25_1;

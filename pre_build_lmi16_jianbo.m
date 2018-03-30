@@ -17,8 +17,8 @@ for j2=1:(M+1) % M plus 1 element - the first element of the matrix
     for j1=j2:(M+1)
         auxm16{j1,j2}='zeros(nx,nx);';
         auxm16{j2,j1}='zeros(nx,nx)'';';
-    end;
-end;
+    end
+end
 
 % Second - Build the diagonal
 
@@ -27,14 +27,14 @@ for j=1:(M+1) % M plus 1 element
         auxm16{j,j}='gamma_2;';
     else
         auxm16{j,j}=sprintf('inv(P{t}(rk,%d))*Q(:,:,1,%d);',j-1,j-1);
-    end;
-end;
+    end
+end
 
 % Third - First column and first row
 
 for j=2:(M+1)
     auxm16{j,1}='A{l,rk}*xk+B{l,rk}*uk;';
     auxm16{1,j}='(A{l,rk}*xk+B{l,rk}*uk)'';';
-end;
+end
 
 

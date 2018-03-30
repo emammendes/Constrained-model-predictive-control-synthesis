@@ -5,7 +5,11 @@
 % Dewei Li and Yugeng Xi. IET Control Theory and Applications v. 7, Iss. 5,
 % pp. 707-719, 2014.
 
-%
+
+%% Yalmip
+
+yalmip('clear');
+
 %% To monitor the results
 
 gammav(:,1)=[NaN;NaN];   % No solver as yet.
@@ -73,17 +77,27 @@ problems=zeros(ksteps,1);
 
 % More LMIS
 
-if flagc % Constrained
+if flagc == 1 % Constrained on the input
     pre_build_lmi20_jianbo
     pre_build_lmi21_jianbo
     pre_build_lmi23_jianbo
     pre_build_lmi25_jianbo
-    pre_build_lmi25_1_jianbo
     
     actual_build_lmi21_jianbo
-    actual_build_lmi23_jianbo
     actual_build_lmi25_jianbo
-    actual_build_lmi25_1_jianbo
+else
+    if flag == 2
+        pre_build_lmi20_jianbo
+        pre_build_lmi21_jianbo
+        pre_build_lmi23_jianbo
+        pre_build_lmi24_jianbo
+        pre_build_lmi25_jianbo
+        pre_build_lmi26_jianbo
+        
+        actual_build_lmi21_jianbo
+        actual_build_lmi25_jianbo
+        actual_build_lmi26_jianbo
+    end
 end
 
 % Main Loop
@@ -95,8 +109,9 @@ for k=1:ksteps
         % Call script to choose matrices and model
         
         % script_choose_matrices_mode
-        alphaS=randfixedsum(L,1,1,0,1)';  % L is the number of vertices of the system matrices
-        alphaP=randfixedsum(T,1,1,0,1)';  % T is the number of vertices of the Probability matrix
+        
+        alphaS = rand(1,L); alphaS = alphaS/sum(alphaS); % L is the number of vertices of the system matrices
+        alphaP = rand(1,T); alphaP = alphaP/sum(alphaP); % T is the number of vertices of the Probability matrix
         
         A_alpha{k-1}=alphaS(1)*A{1,r{k-1}};
         B_alpha{k-1}=alphaS(1)*B{1,r{k-1}};
@@ -126,75 +141,93 @@ for k=1:ksteps
         
     end
     
-    if isnan(double(uk))
-        disp('Infeasible LMI');
-        flaguk=1;
-        break;
-    else
-        
-        % Update LMIs 15, 16 and 20 using the string version of the LMIs
-        
-        actual_build_lmi15_jianbo
-        actual_build_lmi16_jianbo
-        
-        if flagc % Constrained or not
-            actual_build_lmi20_jianbo
-            LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
-        else
-            LMIs_orig=[biglmi11;biglmi15;biglmi16];
+    
+    % Update LMIs 15, 16 and 20 using the string version of the LMIs
+    
+    actual_build_lmi15_jianbo
+    actual_build_lmi16_jianbo
+    
+    if flagc == 1 % Constrained on the input
+        actual_build_lmi20_jianbo
+        actual_build_lmi23_jianbo
+        actual_build_lmi25_jianbo
+        LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
+    elseif flagc == 2 % Constrained on the input and states
+        actual_build_lmi20_jianbo
+        actual_build_lmi23_jianbo
+        actual_build_lmi24_jianbo
+        actual_build_lmi25_jianbo
+        actual_build_lmi26_jianbo
+        LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi24;biglmi25,biglmi25_1;biglmi26,biglmi26_1];
+    else % unconstrained
+        LMIs_orig=[biglmi11;biglmi15;biglmi16];
+    end
+    
+    sol = optimize(LMIs_orig,Obj,opts);
+    
+    %[primal, ~] = checkset(LMIs_orig);
+    
+    elapsed_time(k) = sol.solvertime;
+    
+    problems(k)=sol.problem;
+    
+    infoSolver_orig{k,mc}=sol.info;
+    
+    % The following test is temporary.  I need to find what is wrong if the
+    % implementation before testing the LMIs
+    
+    %     if sol.problem == 0
+    %         fprintf('#%d - Successfully solved\n',k);
+    %     elseif sol.problem == 3
+    %         fprintf('#%d - Maximum #iterations or time-limit exceeded\n',k);
+    %     elseif sol.problem == 4
+    %         fprintf('#%d - Numerical problems\n',k);
+    %     elseif sol.problem == 5
+    %         fprintf('#%d - Lack of progress\n',k);
+    %     else
+    %         disp('LMI unfeasible');
+    %         fprintf('#%d - Aborting process at interation \n',k);
+    %         break;
+    %     end
+    
+    % Use the result of the LMI as the new input
+    
+    u(:,k)=double(uk);
+    
+    % Control Cost
+    
+    control_cost(k)=x(:,k)'*mathQ{r{k}}*x(:,k)+u(:,k)*mathR{r{k}}*u(:,k);
+    
+    %  Gamma
+    
+    gammav(:,k)=[double(gamma_1);double(gamma_2)];
+    
+    % Some interesting variables
+    
+    %      uk
+    %      double(mathU)
+    
+    
+    if sol.problem == 1 || flaglmi24 % either a problem with a LMI or with an state inequality
+        s='[';
+        for ii=1:nx
+            s=sprintf('%s %g',s,xk(ii));
         end
-        
-        sol = optimize(LMIs_orig,Obj,opts);
-        
-        %[primal, ~] = checkset(LMIs_orig);
-        
-        elapsed_time(k) = sol.solvertime;
-        
-        problems(k)=sol.problem;
-        
-        infoSolver_orig{k,mc}=sol.info;
-        
-        % The following test is temporary.  I need to find what is wrong if the
-        % implementation before testing the LMIs
-        
-        %     if sol.problem == 0
-        %         fprintf('#%d - Successfully solved\n',k);
-        %     elseif sol.problem == 3
-        %         fprintf('#%d - Maximum #iterations or time-limit exceeded\n',k);
-        %     elseif sol.problem == 4
-        %         fprintf('#%d - Numerical problems\n',k);
-        %     elseif sol.problem == 5
-        %         fprintf('#%d - Lack of progress\n',k);
-        %     else
-        %         disp('LMI unfeasible');
-        %         fprintf('#%d - Aborting process at interation \n',k);
-        %         break;
-        %     end
-        
-        % Use the result of the LMI as the new input
-        
-        u(:,k)=double(uk);
-        
-        % Control Cost
-        
-        control_cost(k)=x(:,k)'*mathQ{r{k}}*x(:,k)+u(:,k)*mathR{r{k}}*u(:,k);
-        
-        %  Gamma
-        
-        gammav(:,k)=[double(gamma_1);double(gamma_2)];
-        
-        % Some interesting variables
-        
-        %      uk
-        %      double(mathU)
-        %      disp('press any key');pause;
+        s=[s ']'];
+        fprintf('Infeasible LMI at iteration %d for xk=%s\n',k,s);
+        flagfeas=0; % Infeasible
+        break;
     end
 end
 
 %% Overall Control Cost
 
-cc_orig=sum(control_cost);
-
-fprintf('Jianbo - Total control cost is %g\n',cc_orig);
+if flagfeas
+    
+    cc_orig=sum(control_cost);
+    
+    fprintf('Jianbo - Total control cost is %g\n',cc_orig);
+    
+end
 
 
