@@ -100,21 +100,21 @@ Here it is an example of runing the script using the default values.
 
 ## Constrained Problem
 
-### For *N*=1 (Unconstrained Problem) - 100 replications
+### For *N*=1 (Constrained Problem) - 100 replications
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path1b](images/image_1_u_constraint_N_1_nrep_100.png)
+* State, input and mode paths for the last replication (constrained simulation - *N* = 1) - ![path1b](images/image_1_u_constraint_N_1_nrep_100.png)
 
-* Control Cost over all replications (unconstrained simulation - *N* = 1) - ![control1b](images/image_2_u_constraint_N_1_nrep_100.png)
+* Control Cost over all replications (constrained simulation - *N* = 1) - ![control1b](images/image_2_u_constraint_N_1_nrep_100.png)
 
-* Average Control effort over all replications (unconstrained simulation - *N* = 1) - ![average1b](images/image_5_u_constraint_N_1_nrep_100.png)
+* Average Control effort over all replications (constrained simulation - *N* = 1) - ![average1b](images/image_5_u_constraint_N_1_nrep_100.png)
 
-### For *N*=3 (Unconstrained Problem) - 100 replications
+### For *N*=3 (Constrained Problem) - 100 replications
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path3b](images/image_1_u_constraint_N_3_nrep_100.png)
+* State, input and mode paths for the last replication (constrained simulation - *N* = 3) - ![path3b](images/image_1_u_constraint_N_3_nrep_100.png)
 
-* Control Cost over all replications (unconstrained simulation - *N* = 3) - ![control3b](images/image_2_u_constraint_N_3_nrep_100.png)
+* Control Cost over all replications (constrained simulation - *N* = 3) - ![control3b](images/image_2_u_constraint_N_3_nrep_100.png)
 
-* Average Control effort over all replications (unconstrained simulation - *N* = 3) - ![average3b](images/image_5_u_constraint_N_3_nrep_100.png)
+* Average Control effort over all replications (constrained simulation - *N* = 3) - ![average3b](images/image_5_u_constraint_N_3_nrep_100.png)
 
 ## Constrained Problem - Random Initial Conditions of State Variables
 
