@@ -77,7 +77,7 @@ elseif flagc == 2
     fprintf('Maximum vale for the state    = %g\n',xmax);
 end
 
-nrep=500;fprintf('Number of replications = %d\n',nrep);
+nrep=1000;fprintf('Number of replications = %d\n',nrep);
 
 
 %% Predicted Control Strategy
@@ -85,7 +85,7 @@ nrep=500;fprintf('Number of replications = %d\n',nrep);
 % N is the number of the predicted control strategy. In the case of the
 % example in the paper N is set to 1 or 3. 
 
-N=1;
+N=3;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
