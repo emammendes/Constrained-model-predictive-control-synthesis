@@ -98,11 +98,11 @@ Here it is an example of runing the script using the default values.
 
 ## For *N*=1 (Input Constrained Problem)
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path1b](images/image_1_no_constraints_N_1.png)
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path1b](images/image_1_u_constraint_N_1.png)
 
-* Control Cost over all replications (Input Constrained Simulation - *N* = 1) - ![control1b](images/image_2_no_constraints_N_1.png)
+* Control Cost over all replications (Input Constrained Simulation - *N* = 1) - ![control1b](images/image_2_u_constraint_N_1.png)
 
-* Average Control effort over all replications (Input Constrained simulation - *N* = 1) - ![average1b](images/image_5_no_constraints_N_1.png)
+* Average Control effort over all replications (Input Constrained simulation - *N* = 1) - ![average1b](images/image_5_u_constraint_N_1.png)
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4a](images/image_6_u_constraint_N_1_random.png)
 
