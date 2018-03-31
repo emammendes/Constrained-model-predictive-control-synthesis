@@ -138,7 +138,7 @@ Here it is an example of runing the script using the default values.
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4b](images/image_6_u_constraint_N_3_random.png)
 
-**Obs** - It was necessary 4407 attempts to get a 1000 valid replications.  
+**Obs** - It was necessary 4407 attempts to get 1000 valid replications.  
 
 # Latex script
 
