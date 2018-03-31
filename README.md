@@ -82,27 +82,27 @@ Here it is an example of runing the script using the default values.
 
 ## For *N*=1 (Unconstrained Problem)
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path](images/image_1_no_constraints_N_1.png)
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path1a](images/image_1_no_constraints_N_1.png)
 
-* Control Cost over all replications (unconstrained simulation - *N* = 1) - ![control](images/image_2_no_constraints_N_1.png)
+* Control Cost over all replications (unconstrained simulation - *N* = 1) - ![control1a](images/image_2_no_constraints_N_1.png)
 
-* Average Control effort over all replications (unconstrained simulation - *N* = 1) - ![average](images/image_5_no_constraints_N_1.png)
+* Average Control effort over all replications (unconstrained simulation - *N* = 1) - ![average1a](images/image_5_no_constraints_N_1.png)
 
 ## For *N*=3 (Unconstrained Problem)
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path](images/image_1_no_constraints_N_3.png)
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path3a](images/image_1_no_constraints_N_3.png)
 
-* Control Cost over all replications (unconstrained simulation - *N* = 3) - ![control](images/image_2_no_constraints_N_3.png)
+* Control Cost over all replications (unconstrained simulation - *N* = 3) - ![control3a](images/image_2_no_constraints_N_3.png)
 
-* Average Control effort over all replications (unconstrained simulation - *N* = 3) - ![average](images/image_5_no_constraints_N_3.png)
+* Average Control effort over all replications (unconstrained simulation - *N* = 3) - ![average3a](images/image_5_no_constraints_N_3.png)
 
 ## For *N*=1 (Input Constrained Problem)
 
-* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path](images/image_1_no_constraints_N_1.png)
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 1) - ![path1b](images/image_1_no_constraints_N_1.png)
 
-* Control Cost over all replications (unconstrained simulation - *N* = 1) - ![control](images/image_2_no_constraints_N_1.png)
+* Control Cost over all replications (Input Constrained Simulation - *N* = 1) - ![control1b](images/image_2_no_constraints_N_1.png)
 
-* Average Control effort over all replications (unconstrained simulation - *N* = 1) - ![average](images/image_5_no_constraints_N_1.png)
+* Average Control effort over all replications (Input Constrained simulation - *N* = 1) - ![average1b](images/image_5_no_constraints_N_1.png)
 
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4a](images/image_6_u_constraint_N_1_random.png)
 
