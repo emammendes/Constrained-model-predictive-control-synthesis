@@ -44,7 +44,7 @@ opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 % if flagc = 1 a constrained problem adding LMIs 20, 21, 23 e 25 will be solved.
 % if flagc = 2 a constrained problem adding LMIs 20, 21, 23, 24, 25 e 25 will be solved
 
-flagc=0;
+flagc=1;
 
 disp('***********************************************');
 
@@ -100,7 +100,7 @@ x=zeros(nx,ksteps);
 x(:,1) = ones(nx,1);
 xk=x(:,1);
 
-flagx = 0;   % If flagx = 0  the CIs above will be used.  If it is equal to 1, the CIs are randomly chosen.
+flagx = 1;   % If flagx = 0  the CIs above will be used.  If it is equal to 1, the CIs are randomly chosen.
 
 % Initial Mode
 
