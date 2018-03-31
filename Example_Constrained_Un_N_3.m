@@ -85,7 +85,7 @@ nrep=100;fprintf('Number of replications = %d\n',nrep);
 % N is the number of the predicted control strategy. In the case of the
 % example in the paper N is set to 1 or 3. 
 
-N=1;
+N=3;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
@@ -100,7 +100,7 @@ x=zeros(nx,ksteps);
 x(:,1) = ones(nx,1);
 xk=x(:,1);
 
-flagx = 1;   % If flagx = 0  the CIs above will be used.  If it is equal to 1, the CIs are randomly chosen.
+flagx = 0;   % If flagx = 0  the CIs above will be used.  If it is equal to 1, the CIs are randomly chosen.
 
 % Initial Mode
 
