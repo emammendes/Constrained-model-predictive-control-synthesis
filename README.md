@@ -130,7 +130,15 @@ Here it is an example of runing the script using the default values.
 
 ### For *N*=3 (Input Constrained Problem)
 
+* State, input and mode paths for the last replication (unconstrained simulation - *N* = 3) - ![path1c](images/image_1_u_constraint_N_3_random.png)
+
+* Control Cost over all replications (Input Constrained Simulation - *N* = 3) - ![control1c](images/image_2_u_constraint_N_3_random.png)
+
+* Average Control effort over all replications (Input Constrained simulation - *N* = 3) - ![average1b](images/image_5_u_constraint_N_3_random.png)
+
 * Monte Carlo simulation (Input Constrained Problem) of Figure 4 - Comparision of the maximal feasible regions.  Only for Controller IV - ![Fig4b](images/image_6_u_constraint_N_3_random.png)
+
+**Obs** - It was necessary 4407 attempts to get a 1000 valid replications.  
 
 # Latex script
 
