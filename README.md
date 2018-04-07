@@ -148,3 +148,11 @@ The script *script_generate_lmi_latex* generates a latex file for each one of th
 
 **Obs.** : You must change the path for the command *pdflatex* in *write_check_lmi.m* (on the bottom of the file)
 
+# Feasible
+
+The use of the command *plot* of *Yalmip* with the constraints (LMis) should show the feasible region. In the particular case of the example given here, one has to chnage the type of variable *xk* to *sdpvar* and let *Yalmip* do the optimization.   This is what the script *script_generate_feasible_region.m* is supposed to do.  Unfortunately that is not case.  In case somebody spots the mistake, please let me know.
+
+As anternative, I have modified the main script to *script_generate_feasible_region_brute_force.m* to plot the feasible region.  Below you will find another example of a feasible region but this time vector B (control) is *B_{2,1}=[0.4;1]*.
+
+
+![feasreg2](images/feasreg_1_u_constraint_N_1_nrep_1000_random.png)
