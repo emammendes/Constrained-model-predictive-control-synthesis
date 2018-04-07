@@ -73,7 +73,7 @@ end
 
 %% Simulation parameters
 
-ksteps=1;fprintf('For the feasible region just %d step is needed\n',ksteps);
+ksteps=1;fprintf('For the feasible region only %d step is needed\n',ksteps);
 
 umax=1;
 xmax=1.5;  % xmax=1.5;
