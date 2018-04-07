@@ -8,7 +8,7 @@
 
 gamma_1 = sdpvar(1);
 gamma_2 = sdpvar(1);
-uk      = sdpvar(1);assign(uk,0);   % Old - assign(uk,CIu);
+uk      = sdpvar(1);   % Old - assign(uk,CIu);
 
 % To build the other LMI variables we need to know the dimensions of the system and
 % control matrices.  This can be easily achieved by looking at the defintions

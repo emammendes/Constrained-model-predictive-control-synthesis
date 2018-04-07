@@ -5,13 +5,6 @@
 
 % LMI (20) 
 
-% Build LMI 21
-
-% Rosileide Lopes - 03/13/2018
-% DELT - UFMG
-
-% LMI (21) 
-
 
 biglmi20=[];
 

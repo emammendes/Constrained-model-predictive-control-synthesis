@@ -31,10 +31,10 @@ for l=1:L
             s='[';
             for j2=1:(M+1)
                 s=sprintf('%s m16{%d,%d}',s,j1,j2);
-            end;
+            end
             s=sprintf('%s];',s);
             auxlmi16=[auxlmi16;eval(s)];
-        end;
+        end
         
         biglmi16=[biglmi16;auxlmi16>=0];
     end
