@@ -46,7 +46,12 @@ opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 
 flagc=1;
 
-disp('***********************************************');
+disp('*******************************************************************');
+disp('*                                                                 *');
+disp('*                   Dr. Lu''s procedure                             *');
+disp('*                                                                 *');
+disp('*******************************************************************');
+disp('');
 
 if flagc == 1
     disp('A Constrained problem will be solved');
@@ -89,7 +94,7 @@ N=1;
 
 fprintf('%d-steps ahead will be considered \n',N);
 
-disp('***********************************************');
+disp('*******************************************************************');
 
 %% Initial Conditions and modes
 

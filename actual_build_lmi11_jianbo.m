@@ -18,8 +18,8 @@ for i=1:M
                 
                 % Evaluation of matrix auxm11 which is symbolic
                 
-                for j1=1:(M+3)
-                    for j2=1:(M+3)
+                for j1=1:size(auxm11,1) % (M+3)
+                    for j2=1:size(auxm11,2) % (M+3)
                         m11{j1,j2}=eval(auxm11{j1,j2});
                     end
                 end
@@ -29,9 +29,9 @@ for i=1:M
                 
                 auxlmi=[];
                 
-                for j1=1:(M+3)
+                for j1=1:size(auxm11,1) % (M+3)
                     s='[';
-                    for j2=1:(M+3)
+                    for j2=1:size(auxm11,2) % (M+3)
                         s=sprintf('%s m11{%d,%d}',s,j1,j2);
                     end
                     s=sprintf('%s];',s);

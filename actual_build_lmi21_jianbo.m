@@ -12,8 +12,8 @@ for i=1:M
     for j=1:M
         for n=1:N
             for l=1:L             % Evaluation of matrix auxm21 which is symbolic          
-                for j1=1:2
-                    for j2=1:2
+                for j1=1:size(auxm21,1) % 2
+                    for j2=1:size(auxm21,2) % 2
                         m21{j1,j2}=eval(auxm21{j1,j2});
                     end
                 end
@@ -23,9 +23,9 @@ for i=1:M
                 
                 auxlmi21=[];
                 
-                for j1=1:2
+                for j1=1:size(auxm21,1) % 2
                     s='[';
-                    for j2=1:2
+                    for j2=1:size(auxm21,2) % 2
                         s=sprintf('%s m21{%d,%d}',s,j1,j2);
                     end
                     s=sprintf('%s];',s);

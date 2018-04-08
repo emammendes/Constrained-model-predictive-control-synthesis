@@ -6,15 +6,11 @@
 % pp. 707-719, 2014.
 %
 %
-%
 % Rosileide Lopes, Reinaldo Palhares and Eduardo Mendes - 03/24/2018
 % DELT - UFMG
 %
 % Obs.: Unfortunately I could not figure out how to use plot to get the
-% feasible region so I had to use the main script with very few modifications
-% to create the feasible region.
-%
-% ksteps is always set to one.
+% feasible region.
 
 %% Cleaning the variables
 
@@ -53,7 +49,12 @@ opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
 
 flagc=1;
 
-disp('***********************************************');
+disp('*******************************************************************');
+disp('*                                                                 *');
+disp('*                   Dr. Lu''s procedure                             *');
+disp('*                                                                 *');
+disp('*******************************************************************');
+disp('');
 
 if flagc == 1
     disp('A Constrained problem will be solved');
@@ -69,14 +70,17 @@ else
     disp('LMIs 11, 15 and 16 will be used');
 end
 
+disp('');
+
+
 % Obs.:  Flagc will be active in the file procedure_jianbo_esp.m 
 
 %% Simulation parameters
 
-ksteps=1;fprintf('For the feasible region only %d step is needed\n',ksteps);
+ksteps=1;fprintf('For the feasible region just %d step is needed\n',ksteps);
 
 umax=1;
-xmax=1.5;  % xmax=1.5;
+xmax=3;  % xmax=1.5;
 if flagc ==1
     fprintf('Maximum allowed control input = %g\n',umax);
 elseif flagc == 2
@@ -84,7 +88,7 @@ elseif flagc == 2
     fprintf('Maximum vale for the state    = %g\n',xmax);
 end
 
-nrep=1000;fprintf('Number of replications = %d\n',nrep);
+nrep=2000;fprintf('Number of replications = %d\n',nrep);
 
 
 %% Predicted Control Strategy
@@ -119,7 +123,7 @@ flagr = 0;   % Meaning that I will be using the CIs above.  If it is equal to 1,
 %  I have just added the following in case I need to change the matrix B in
 %  the example. parb=[0.0] which is the value in the paper.
 
-parb=[0.4];% 0.4 0.45 0.46 0.47 0.475 0.476 0.477 0.478 0.478 0.479 0.48 0.49 0.5 0.6 0.7 0.8 0.9 1.0]; % values of the parameter b
+parb=[0.0];% 0.4 0.45 0.46 0.47 0.475 0.476 0.477 0.478 0.478 0.479 0.48 0.49 0.5 0.6 0.7 0.8 0.9 1.0]; % values of the parameter b
 
 %% Main Loop
 
@@ -131,11 +135,11 @@ for iparb=1:length(parb)
     fprintf('Simulation for B{2,1}=[%g;1]\n',parb(iparb));
     disp(' ');
     
-    ccontrol_orig = zeros(nrep,1); % Total Control Cost of the original method
+    ccontrol_jianbo = zeros(nrep,1); % Total Control Cost of the original method
     
-    x_orig=[];
+    x_jianbo=[];
     
-    u_orig=[];
+    u_jianbo=[];
     
     mc=1;
     
@@ -155,7 +159,7 @@ for iparb=1:length(parb)
         
         % Save solver info
         
-        infoSolver_orig{1,mc}='Initial';
+        infoSolver_jianbo{1,mc}='Initial';
         
         % Just to be sure that uk is not feasible and it is the replication is
         % not taken into account
@@ -197,9 +201,9 @@ for iparb=1:length(parb)
         % If there is no problem with the solution do
         
         if flagfeas
-            ccontrol_orig(mc)=cc_orig;
-            x_orig=[x_orig x'];
-            u_orig=[u_orig u'];
+            ccontrol_jianbo(mc)=cc_jianbo;
+            x_jianbo=[x_jianbo x'];
+            u_jianbo=[u_jianbo u'];
             mc=mc+1;
         else
             mc_failure=[mc_failure mcseed];
@@ -213,33 +217,33 @@ for iparb=1:length(parb)
     
     %% Mean and Standard deviation for the states
     
-    x_orig_mean=[];
+    x_jianbo_mean=[];
     
-    x_orig_std=[];
+    x_jianbo_std=[];
     
     for i=1:nx
-        x_orig_mean=[x_orig_mean mean(x_orig(:,i:nx:size(x_orig,2)),2)];
-        x_orig_std=[x_orig_std 2*std(x_orig(:,i:nx:size(x_orig,2))')'];
+        x_jianbo_mean=[x_jianbo_mean mean(x_jianbo(:,i:nx:size(x_jianbo,2)),2)];
+        x_jianbo_std=[x_jianbo_std 2*std(x_jianbo(:,i:nx:size(x_jianbo,2))')'];
     end
     
     %% Mean and Standard deviation for the input
     
-    u_orig_mean=mean(u_orig,2);
-    u_orig_std=2*std(u_orig')';
+    u_jianbo_mean=mean(u_jianbo,2);
+    u_jianbo_std=2*std(u_jianbo')';
     
     %% Save the results of the simulation
     
-    fcost_orig{iparb}=mean(ccontrol_orig);
+    fcost_jianbo{iparb}=mean(ccontrol_jianbo);
     
-    finfoSolver_orig{iparb}=infoSolver_orig;
+    finfoSolver_jianbo{iparb}=infoSolver_jianbo;
     
-    fx_orig_mean{iparb}=x_orig_mean;
+    fx_jianbo_mean{iparb}=x_jianbo_mean;
     
-    fx_orig_std{iparb}=x_orig_std;
+    fx_jianbo_std{iparb}=x_jianbo_std;
     
-    fu_orig_mean{iparb}=u_orig_mean;
+    fu_jianbo_mean{iparb}=u_jianbo_mean;
     
-    fu_orig_std{iparb}=u_orig_std;
+    fu_jianbo_std{iparb}=u_jianbo_std;
     
 end
 
@@ -255,7 +259,7 @@ tfig=0;
 if flagx > 0
     tfig=tfig+1;
     figure(tfig);
-    plot(x_orig(1,1:nx:end),x_orig(1,2:nx:end),'*');
+    plot(x_jianbo(1,1:nx:end),x_jianbo(1,2:nx:end),'*');
     if flagc == 1
         title(sprintf('Valid initial conditions over %g replications for N = %d - Input constraint',nrep,N));
     else
@@ -274,26 +278,53 @@ end
 for i=1:tfig
     if flagc == 1
         if flagx 
-            s=sprintf('images/feasreg_%d_u_constraint_N_%d_nrep_%d_random.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_u_constraint_N_%d_nrep_%d_random.png',i,N,nrep);
         else
-            s=sprintf('images/feasreg_%d_u_constraint_N_%d_nrep_%d.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_u_constraint_N_%d_nrep_%d.png',i,N,nrep);
         end
     elseif flagc == 2
         if flagx 
-            s=sprintf('images/feasreg_%d_u_and_x_constraints_N_%d_nrep_%d_random.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_u_and_x_constraints_N_%d_nrep_%d_random.png',i,N,nrep);
         else
-            s=sprintf('images/feasreg_%d_u_and_x_constraints_N_%d_nrep_%d.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_u_and_x_constraints_N_%d_nrep_%d.png',i,N,nrep);
         end
     else
         if flagx 
-            s=sprintf('images/feasreg_%d_no_constraints_N_%d_nrep_%d_random.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_no_constraints_N_%d_nrep_%d_random.png',i,N,nrep);
         else
-            s=sprintf('images/feasreg_%d_no_constraints_N_%d_nrep_%d.png',i,N,nrep);
+            s=sprintf('images/feasreg_jianbo_%d_no_constraints_N_%d_nrep_%d.png',i,N,nrep);
         end
     end
     figure(i);
     print(s,'-dpng');
 end
 
+%% Save results
+
+if exist('data','dir') ~= 7 % Please see help for exist
+    mkdir('data')
+end
+
+if flagc == 1
+    if flagx
+        s=sprintf('data/feasreg_jianbo_%d_u_constraint_N_%d_nrep_%d_random.mat',i,N,nrep);
+    else
+        s=sprintf('data/feasreg_jianbo_%d_u_constraint_N_%d_nrep_%d.mat',i,N,nrep);
+    end
+elseif flagc == 2
+    if flagx
+        s=sprintf('data/feasreg_jianbo_%d_u_and_x_constraints_N_%d_nrep_%d_random.mat',i,N,nrep);
+    else
+        s=sprintf('data/feasreg_jianbo_%d_u_and_x_constraints_N_%d_nrep_%d.mat',i,N,nrep);
+    end
+else
+    if flagx
+        s=sprintf('data/feasreg_jianbo_%d_no_constraints_N_%d_nrep_%d_random.mat',i,N,nrep);
+    else
+        s=sprintf('data/feasreg_jianbo_%d_no_constraints_N_%d_nrep_%d.mat',i,N,nrep);
+    end
+end
+
+save_results_simulation
 
 

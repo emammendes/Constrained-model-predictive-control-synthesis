@@ -11,9 +11,14 @@ addpath(genpath('~/mosek/8/toolbox/r2014a'));
 
 %% Define Constants
 
-flagc=0;
+flagc=1;
 
-disp('***********************************************');
+disp('*******************************************************************');
+disp('*                                                                 *');
+disp('*                   Dr. Lu''s procedure                             *');
+disp('*                                                                 *');
+disp('*******************************************************************');
+disp('');
 
 if flagc == 1
     disp('A Constrained problem will be solved');
@@ -29,7 +34,14 @@ else
     disp('LMIs 11, 15 and 16 will be used');
 end
 
-opts = sdpsettings('verbose',0, 'warning',1,'solver','mosek');
+disp('');
+disp('Feasible Region using plot - lmilab is recommended but mosek works');
+disp('');
+disp('*******************************************************************');
+disp('');
+
+
+opts = sdpsettings('verbose',1, 'warning',1,'solver','mosek');
 
 model_parameters_jianbo
 
@@ -37,7 +49,7 @@ nq=nx;
 nr=nu;
 
 umax=1;
-xmax=1;
+xmax=0.7;
 
 rk=1;
 
@@ -47,7 +59,7 @@ define_lmi_variables_jianbo
 
 xk=sdpvar(2,1);
 
-Obj=gamma_1+gamma_2;
+B{2,1}=[0;1];
 
 %% LMI 11
 
@@ -75,7 +87,7 @@ if flagc == 1 % Constrained on the input
     actual_build_lmi23_jianbo
     pre_build_lmi25_jianbo
     actual_build_lmi25_jianbo
-    LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
+    LMIs_jianbo=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi25,biglmi25_1];
 elseif flagc == 2 % Constrained on the input and states
     pre_build_lmi20_jianbo
     actual_build_lmi20_jianbo
@@ -89,10 +101,40 @@ elseif flagc == 2 % Constrained on the input and states
     actual_build_lmi25_jianbo
     pre_build_lmi26_jianbo
     actual_build_lmi26_jianbo
-    LMIs_orig=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi24;biglmi25,biglmi25_1;biglmi26,biglmi26_1];
+    LMIs_jianbo=[biglmi11;biglmi15;biglmi16;biglmi20;biglmi21;biglmi23;biglmi24;biglmi25,biglmi25_1;biglmi26,biglmi26_1];
 else % unconstrained
-    LMIs_orig=[biglmi11;biglmi15;biglmi16];
+    LMIs_jianbo=[biglmi11;biglmi15;biglmi16];
 end
 
+%% Plot
 
-plot(LMIs_orig,xk,[],[],opts);
+tfig=0;
+tfig=tfig+1;
+figure(tfig);
+plot(LMIs_jianbo,xk,'b',[],opts);
+if flagc == 1
+    title(sprintf('Feasible Region - Input constraint with u_{max} = %g',umax));
+else
+    title(sprintf('Feasible Region - Input and State constraints with u_{max} = %g and x_{max} = %g',umax,xmax));
+end
+xlabel('x_1(0)');ylabel('x_2(0)');
+
+
+%% Images
+
+if exist('images','dir') ~= 7 % Please see help for exist
+    mkdir('images')
+end
+
+for i=1:tfig
+    if flagc == 1
+        s=sprintf('images/feasregp_jianbo_%d_u_constraint_N_%d_umax_%g.png',i,N,umax);
+    elseif flagc == 2
+        s=sprintf('images/feasregp_jianbo_%d_u_and_x_constraints_N_%d_umax_%g_xmax_%g.png',i,N,umax,xmax);
+    else
+        s=sprintf('images/feasregp_jianbo_%d_no_constraints_N_%d.png',i,N);
+    end
+    figure(i);
+    print(s,'-dpng');
+end
+

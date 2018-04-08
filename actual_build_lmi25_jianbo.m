@@ -13,21 +13,21 @@ biglmi25=[];
 for i=1:M
     for n=1:N
         
-        % Evaluation of matrix auxm16 which is symbolic
+        % Evaluation of matrix auxm25 which is symbolic
         
-        for j1=1:2 % linhas
-            for j2=1:2 % colunas
+        for j1=1:size(auxm25,1) % 2 rows
+            for j2=1:size(auxm25,2) % 2 columns
                 m25{j1,j2}=eval(auxm25{j1,j2});
             end
         end
         
-        % Transform cell matrix m16 to a LMI
+        % Transform cell matrix m25 to a LMI
         
         auxlmi25=[];
         
-        for j1=1:2
+        for j1=1:size(auxm25,1) % 2
             s='[';
-            for j2=1:2
+            for j2=1:size(auxm25,2) % 2
                 s=sprintf('%s m25{%d,%d}',s,j1,j2);
             end
             s=sprintf('%s];',s);

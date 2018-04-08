@@ -16,8 +16,8 @@ for l=1:L
         
         % Evaluation of matrix auxm16 which is symbolic
         
-        for j1=1:(M+1) % linhas
-            for j2=1:(M+1) % colunas
+        for j1=1:size(auxm16,1) % (M+1) rows
+            for j2=1:size(auxm16,2) % (M+1) columns
                 m16{j1,j2}=eval(auxm16{j1,j2});
             end
         end
@@ -27,9 +27,9 @@ for l=1:L
         
         auxlmi16=[];
         
-        for j1=1:(M+1)
+        for j1=1:size(auxm16,1) % (M+1)
             s='[';
-            for j2=1:(M+1)
+            for j2=1:size(auxm16,2) % (M+1)
                 s=sprintf('%s m16{%d,%d}',s,j1,j2);
             end
             s=sprintf('%s];',s);

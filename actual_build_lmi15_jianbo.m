@@ -10,9 +10,9 @@ auxlmi15=[];
 
 auxm15=m15;
 
-for j1=1:3 % linhas 
+for j1=1:size(auxm15,1) % rows 
     s=[];
-    for j2=1:3 % colunas
+    for j2=1:size(auxm15,2) % columns
         s=[s eval(m15{j1,j2})];
     end
     auxlmi15=[auxlmi15;s];
