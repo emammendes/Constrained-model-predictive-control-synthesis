@@ -343,4 +343,18 @@ for i=1:tfig
 end
 
 
+%% Save results
 
+if exist('data','dir') ~= 7 % Please see help for exist
+    mkdir('data')
+end
+
+if flagc == 1
+    s=sprintf('data/data_jianbo_u_constraint_N_%d_nrep_%d_umax_%g.mat',N,nrep,umax);
+elseif flagc == 2
+    s=sprintf('data/data_jianbo_u_and_x_constraints_N_%d_nrep_%d_umax_%g_xmax_%g.mat',N,nrep,umax,xmax);
+else
+    s=sprintf('data/data_jianbo_no_constraints_N_%d_nrep_%d.mat',N,nrep);
+end
+
+save_results_simulation
