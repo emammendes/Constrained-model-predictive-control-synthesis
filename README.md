@@ -150,9 +150,10 @@ The script *script_generate_lmi_latex* generates a latex file for each one of th
 
 # Feasible Region
 
-The use of the command *plot* of *Yalmip* with the constraints (LMis) should show the feasible region. In the particular case of the example given here, one has to change the type of variable *xk* to *sdpvar* and let *Yalmip* do the optimization.   This is what the script *script_generate_feasible_region.m* is supposed to do but unfortunately that is not case.  In case somebody spots the mistake, please let me know.
+The use of the command *plot* of *Yalmip* with the constraints (LMis) should show the feasible region. In the particular case of the example given here, one has to change the type of variable *xk* to *sdpvar* and let *Yalmip* do the optimization.   This is what the script *script_generate_feasible_region.m* does as can be seen in the figure just below. Note that the simulations shown above agree quite well with the result using *plot*.   
 
-As an anternative, I have modified the main script to *script_generate_feasible_region_brute_force.m* to plot the feasible region.  Below you will find another example of a feasible region but this time vector B (control) is *B_{2,1}=[0.4;1]*.
+![feasreg2](images/feasregp_jianbo_1_u_constraint_N_1_umax_1.png}
 
+To use the brute force method, I have modified the main script to *script_generate_feasible_region_brute_force.m* to plot the feasible region.  Below you will find another example of a feasible region but this time vector B (control) is *B_{2,1}=[0.4;1]*.
 
-![feasreg2](images/feasreg_1_u_constraint_N_1_nrep_1000_random.png)
+![feasreg3](images/feasreg_1_u_constraint_N_1_nrep_1000_random.png)
