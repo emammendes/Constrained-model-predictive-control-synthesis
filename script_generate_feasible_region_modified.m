@@ -59,7 +59,7 @@ define_lmi_variables_jianbo
 
 xk=sdpvar(2,1);
 
-B{2,1}=[0.9;1];
+B{2,1}=[0.445;1];
 
 %% LMI 11
 
@@ -119,6 +119,37 @@ else
     title(sprintf('Feasible Region - Input and State constraints with u_{max} = %g and x_{max} = %g',umax,xmax));
 end
 xlabel('x_1(0)');ylabel('x_2(0)');
+
+% Doing it again just to save the points
+
+if flagc == 1
+    s=sprintf('points_feasreg_jianbo_u_constraint_N_%d_umax_%s=plot(LMIs_jianbo,xk,''b'',[],opts);',N,strrep(num2str(umax),'.','_'));
+elseif flagc == 2
+    s=sprintf('points_feasreg_jianbo_u_and_x_constraints_N_%d_umax_%s_xmax_%s=plot(LMIs_jianbo,xk,''b'',[],opts);',N,strrep(num2str(umax),'.','_'),strrep(num2str(xmax),'.','_'));
+else
+    s=sprintf('points_feasreg_jianbo_no_constraints_N_%d=plot(LMIs_jianbo,xk,''b'',[],opts);',N);
+end
+
+disp('Doing it again just to save the feasible region');
+
+eval(s);
+
+if exist('data','dir') ~= 7 % Please see help for exist
+     mkdir('data')
+end
+
+if flagc == 1
+    s=sprintf('save data/pfeasreg_jianbo_u_constraint_N_%d_umax_%s points_feasreg_jianbo_u_constraint_N_%d_umax_%s',N,strrep(num2str(umax),'.','_'),N,strrep(num2str(umax),'.','_'));
+elseif flagc == 2
+    s=sprintf('save data/pfeasreg_jianbo_u_and_x_constraints_N_%d_umax_%s_xmax_%s.mat  points_feasreg_jianbo_u_and_x_constraints_N_%d_umax_%s_xmax_%s',...
+        N,strrep(num2str(umax),'.','_'),strrep(num2str(xmax),'.','_'),N,strrep(num2str(umax),'.','_'),strrep(num2str(xmax),'.','_'));
+else
+    s=sprintf('save data/pfeasreg_jianbo_no_constraints_N_%d.mat points_feasreg_jianbo_no_constraints_N_%d',N.N);
+end
+
+eval(s)
+
+disp('Feasible region saved to dir data');
 
 
 %% Images
