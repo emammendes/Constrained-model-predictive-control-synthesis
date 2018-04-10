@@ -59,7 +59,10 @@ define_lmi_variables_jianbo
 
 xk=sdpvar(2,1);
 
-B{2,1}=[0.445;1];
+B{2,1}=input('Enter value for B{2,1} (default =[0;1]) => ');
+if isempty(B{2,1})
+    B{2,1}=[0;1];
+end
 
 %% LMI 11
 
@@ -109,10 +112,14 @@ end
 
 %% Plot
 
+npoints=100;
+
 tfig=0;
 tfig=tfig+1;
 figure(tfig);
-plot(LMIs_jianbo,xk,'b',[],opts);
+p=plot(LMIs_jianbo,xk,'b',npoints,opts);
+p=cell2mat(p)';
+fill(p(:,1),p(:,2),'blue','LineWidth',2,'FaceAlpha',.3);
 if flagc == 1
     title(sprintf('Feasible Region - Input constraint with u_{max} = %g',umax));
 else
@@ -123,14 +130,12 @@ xlabel('x_1(0)');ylabel('x_2(0)');
 % Doing it again just to save the points
 
 if flagc == 1
-    s=sprintf('points_feasreg_jianbo_u_constraint_N_%d_umax_%s=plot(LMIs_jianbo,xk,''b'',[],opts);',N,strrep(num2str(umax),'.','_'));
+    s=sprintf('points_feasreg_jianbo_u_constraint_N_%d_umax_%s=p;',N,strrep(num2str(umax),'.','_'));
 elseif flagc == 2
-    s=sprintf('points_feasreg_jianbo_u_and_x_constraints_N_%d_umax_%s_xmax_%s=plot(LMIs_jianbo,xk,''b'',[],opts);',N,strrep(num2str(umax),'.','_'),strrep(num2str(xmax),'.','_'));
+    s=sprintf('points_feasreg_jianbo_u_and_x_constraints_N_%d_umax_%s_xmax_%s=p;',N,strrep(num2str(umax),'.','_'),strrep(num2str(xmax),'.','_'));
 else
-    s=sprintf('points_feasreg_jianbo_no_constraints_N_%d=plot(LMIs_jianbo,xk,''b'',[],opts);',N);
+    s=sprintf('points_feasreg_jianbo_no_constraints_N_%d=p;',N);
 end
-
-disp('Doing it again just to save the feasible region');
 
 eval(s);
 
